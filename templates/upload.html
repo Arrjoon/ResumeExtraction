@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content1 %}
+<style>
+    .file-upload {
+        margin-bottom: 1rem;
+    }
+
+    .submit-btn {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+    }
+
+    .submit-btn:hover {
+        background-color: #0056b3;
+    }
+
+    .form-container {
+        margin-top: 2rem;
+        padding: 2rem;
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        background-color: #f8f9fa;
+    }
+</style>
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="form-container">
+        <h2 class="mb-4">Upload PDF or DOC File</h2>
+        <form action="{% url 'upload_file' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3 file-upload">
+                {{ form.file.label_tag }}
+                {{ form.file }}
+            </div>
+            <small class="form-text text-muted">{{ form.file.help_text }}</small>
+            <button type="submit" class="btn submit-btn">Upload</button>
+        </form>
+    </div>
+</div>
+
+
+
+<div class="container mt-6 overflow-hidden text-center">
+    {% if data and data|length > 0 %}
+    <h1>Extracted Information </h1>
+   
+    <div class="row gx-5">
+        {% for key, value in data.items %}
+                {% if value %}
+                    <div class="col-6">
+                        <div class="p-3 text-bg-primary"><strong>{{ key }}:</strong> 
+                            {% if key == 'entities' %}
+                                <ul>
+                                    {% for entity in value %}
+                                        <li>{{ entity.text }} - {{ entity.label }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                {{ value }}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
