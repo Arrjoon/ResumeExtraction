@@ -6,6 +6,10 @@ __pycache__
 db.sqlite3
 media
 
+myapp/nlp_model/transformer/
+myapp/nlp_model/config.cfg
+
+
 # Backup files # 
 *.bak 
 
@@ -18,7 +22,7 @@ media
 .idea/**/shelf
 
 # AWS User-specific
-.idea/**/aws.xml
+.idea/**/aws.xmlss
 
 # Generated files
 .idea/**/contentModel.xml
