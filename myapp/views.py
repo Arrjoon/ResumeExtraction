@@ -65,7 +65,7 @@ def extraction_to_text(request):
             text=extract_text(file_path)
             email = extract_email_from_resume(text)
             contact = extract_contact_number_from_resume(text)
-            linkedin = extract_linkedin_id(text)
+            # linkedin = extract_linkedin_id(text)
             data={'email':email,'contact':contact}
             # return HttpResponse(f'File uploaded successfully: {text}')
             ner_view(text)
@@ -99,5 +99,9 @@ def save_to_text(request):
         text = request.POST.get('text')
         # print(text)
         return HttpResponse("text is test returns")
+    
+
+def job_description(request):
+    return render(request,'job_description.html')
 
 

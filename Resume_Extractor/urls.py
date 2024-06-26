@@ -25,6 +25,8 @@ urlpatterns = [
     # path('upload/',views.upload_file,name='upload_file'),
     path('',views.extraction_to_text,name="upload_file"),
     path('save_text_file/',views.save_to_text,name="s_text"),
+    path('job_description/',views.job_description,name="job_description"),
+
 
 
 ]

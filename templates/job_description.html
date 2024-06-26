@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{% block content1 %}
+<style>
+    .file-upload {
+        margin-bottom: 1rem;
+    }
+
+    .submit-btn {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+    }
+
+    .submit-btn:hover {
+        background-color: #0056b3;
+    }
+
+    .form-container {
+        margin-top: 2rem;
+        padding: 2rem;
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        background-color: #f8f9fa;
+    }
+</style>
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="form-container ">
+        <div class="d-flex flex-row justify-content-between align-items-center">
+            <div>
+                <button class="btn btn-primary mr-2" type="button" data-toggle="collapse" data-target="#addPostForm"
+                    aria-expanded="false" aria-controls="addPostForm">
+                    Add Job Descriptions
+                </button>
+            </div>
+            <div>or</div>
+            <div>
+                <button class="btn btn-primary ml-2" type="button" data-toggle="collapse" data-target="#addUploadForm"
+                    aria-expanded="false" aria-controls="addPostForm">
+                    Upload Job Description
+                </button>
+            </div>
+        </div>
+        <!-- job description upload -->
+        <div class="collapse mt-3" id="addUploadForm">
+            <div class="card card-body">
+                <form action="{% url 'upload_file' %}" method="post" enctype="multipart/form-data"
+                    class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="fileInput" class="">
+                            Select File from drive
+                            <br>
+                            <input type="file" id="fileInput" name="file" class="d-none">
+                        </label>
+                    </div>
+                    <small class="form-text text-muted">Choose a file to upload.</small>
+                    <button type="submit" class="btn btn-success mt-3">Upload</button>
+                </form>
+
+            </div>
+        </div>
+
+        <!-- Form to Add Post -->
+        <!-- This div will be shown or hidden when the button is clicked -->
+        <div class="collapse mt-3" id="addPostForm">
+            <div class="card card-body">
+                <form action="{url 'job_description'}" >
+                    <div class="form-group">
+                        <h4>About Job</h4>
+                        <label for="postTitlemt-3">Company Description </label>
+                        <textarea type="text" class="form-control" id="postTitle" placeholder="Enter title"></textarea>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="postContent">Role Description</label>
+                        <textarea class="form-control" id="postContent" rows="3"
+                            placeholder="Enter role description"></textarea>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="postContent">Role Description</label>
+                        <textarea class="form-control" id="postContent" rows="3"
+                            placeholder="Enter role description"></textarea>
+                    </div>
+                    <!-- Skills Section -->
+                    <div class="form-group mt-3">
+                        <label for="skillInput">Skill</label>
+                        <input type="text" class="form-control" id="skillInput" placeholder="Enter a skill">
+                    </div>
+                    <button type="button" class="btn btn-primary mt-1" onclick="addSkill()">Add More</button>
+                    <input type="hidden" name="skills" id="hiddenSkills">
+                    <div id="skillsList">
+                        <h4>Skills List</h4>
+                        <li id="skillsUl" class="list-group"></li>
+                    </div>
+                    <!-- List of Skills -->
+                    <div class="form-groupmt-3">
+                        <label for="skillInput">Experience</label>
+                        <input type="text" class="form-control" id="skillInput" placeholder="Enter a Experience">
+                    </div>
+
+                    <button type="submit" class="btn btn-success mt-4">Add Your Job Description</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    let skills = [];
+
+    function addSkill() {
+        // Get the skill input value
+        const skillInput = document.getElementById('skillInput').value;
+
+        // Check if input is not empty
+        if (skillInput.trim() !== '') {
+            // Add skill to skills array
+            skills.push(skillInput);
+
+            // Create a new list item
+            const li = document.createElement('li');
+            li.className = 'list-group-item';
+            li.textContent = skillInput;
+
+            // Append the new list item to the skills list
+            document.getElementById('skillsUl').appendChild(li);
+
+            // Update hidden input field
+            document.getElementById('hiddenSkills').value = JSON.stringify(skills);
+
+            // Clear the input field
+            document.getElementById('skillInput').value = '';
+        }
+    }
+</script>
+
+
+<div class="container mt-6 overflow-hidden text-center">
+    {% if data and data|length > 0 %}
+    <h1>Extracted Information </h1>
+
+    <div class="row gx-5">
+        {% for key, value in data.items %}
+        {% if value %}
+        <div class="col-6">
+            <div class="p-3 text-bg-primary"><strong>{{ key }}:</strong>
+                {% if key == 'entities' %}
+                <ul>
+                    {% for entity in value %}
+                    <li>{{ entity.text }} - {{ entity.label }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                {{ value }}
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

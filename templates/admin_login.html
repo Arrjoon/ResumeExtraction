@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content1 %}
+<style>
+    .file-upload {
+        margin-bottom: 1rem;
+    }
+
+    .submit-btn {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+    }
+
+    .submit-btn:hover {
+        background-color: #0056b3;
+    }
+
+    .form-container {
+        margin-top: 2rem;
+        padding: 2rem;
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        background-color: #f8f9fa;
+    }
+</style>
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="form-container">
+        <h2 class="mb-4">Upload PDF or DOC File</h2>
+        <form action="{% url 'login' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+    </div>
+</div>
+
+
+
+<div class="container mt-6 overflow-hidden text-center">
+    {% if data and data|length > 0 %}
+    <h1>Extracted Information </h1>
+   
+    <div class="row gx-5">
+        {% for key, value in data.items %}
+                {% if value %}
+                    <div class="col-6">
+                        <div class="p-3 text-bg-primary"><strong>{{ key }}:</strong> 
+                            {% if key == 'entities' %}
+                                <ul>
+                                    {% for entity in value %}
+                                        <li>{{ entity.text }} - {{ entity.label }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                {{ value }}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
