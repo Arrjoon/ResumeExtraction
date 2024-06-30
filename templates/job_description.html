@@ -71,25 +71,29 @@
         <div class="collapse mt-3" id="addPostForm">
             <div class="card card-body">
                 <form action="{url 'job_description'}" >
+                    <h4>About Job</h4>
+                    <div class="form-group mt-3">
+                        <label for="postContent">Job Role</label>
+                        <input type="text" class="form-control" id="skillInput" placeholder="Enter a job role" name="job_role">
+                    </div>
                     <div class="form-group">
-                        <h4>About Job</h4>
                         <label for="postTitlemt-3">Company Description </label>
-                        <textarea type="text" class="form-control" id="postTitle" placeholder="Enter title"></textarea>
+                        <textarea type="text" class="form-control" id="postTitle" placeholder="Enter Job description" name="company_description"></textarea>
                     </div>
                     <div class="form-group mt-3">
-                        <label for="postContent">Role Description</label>
+                        <label for="postContent">Job Description</label>
                         <textarea class="form-control" id="postContent" rows="3"
-                            placeholder="Enter role description"></textarea>
+                            placeholder="Enter role description" name="job_description"></textarea>
                     </div>
                     <div class="form-group mt-3">
-                        <label for="postContent">Role Description</label>
+                        <label for="postContent">Requirements</label>
                         <textarea class="form-control" id="postContent" rows="3"
-                            placeholder="Enter role description"></textarea>
+                            placeholder="Enter role description" name="requirements"></textarea>
                     </div>
                     <!-- Skills Section -->
                     <div class="form-group mt-3">
                         <label for="skillInput">Skill</label>
-                        <input type="text" class="form-control" id="skillInput" placeholder="Enter a skill">
+                        <input type="text" class="form-control" id="skillInput" placeholder="Enter a skill" name="skills">
                     </div>
                     <button type="button" class="btn btn-primary mt-1" onclick="addSkill()">Add More</button>
                     <input type="hidden" name="skills" id="hiddenSkills">
@@ -100,7 +104,7 @@
                     <!-- List of Skills -->
                     <div class="form-groupmt-3">
                         <label for="skillInput">Experience</label>
-                        <input type="text" class="form-control" id="skillInput" placeholder="Enter a Experience">
+                        <input type="text" class="form-control" id="skillInput" placeholder="Enter a Experience" name="experience">
                     </div>
 
                     <button type="submit" class="btn btn-success mt-4">Add Your Job Description</button>

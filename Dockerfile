@@ -1,11 +1,16 @@
-FROM python:3.12-rc-slim-buster
+# Use a stable base image
+FROM python:3.12
 
 WORKDIR /app
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
 
+# Copy requirements.txt and install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the application code
 COPY . .
 
-EXPOSE 8000
-
-CMD python manage.py runserver
+# Expose the port the app runs on
+EXPOSE 8001
+# Run the application
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8001"]
