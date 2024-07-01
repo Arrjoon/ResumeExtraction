@@ -103,6 +103,7 @@ def save_to_text(request):
 
 def job_description(request):
     if request.method == 'POST':
+        pass
         
 
     return render(request,'job_description.html')
