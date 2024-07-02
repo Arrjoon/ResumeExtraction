@@ -5,7 +5,7 @@
 __pycache__
 db.sqlite3
 media
-
+staticfiles
 myapp/nlp_model/transformer/
 myapp/nlp_model/config.cfg
 
