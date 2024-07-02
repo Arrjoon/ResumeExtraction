@@ -74,5 +74,16 @@ Stopwords are the words like 'a', 'the,' 'am', 'is', etc., that hardly add any m
 SpaCy is a library in Python that is widely used in many NLP-based projects by data scientists as it offers quick implementation of techniques mentioned above. Additionally, one can use SpaCy to visualize different entities in text data through its built-in visualizer called displacy. Furthermore, SpaCy supports the implementation of rule-based matching, shallow parsing, dependency parsing, etc. This NLP resume extractor project will guide you on using SpaCy for Named Entity Recognition (NER).
 
 
+##Named Entity Recognition (NER) with Transformers
+NER is a task in NLP where the goal is to identify and classify entities (like names of people, organizations, locations, etc.) in a text. Here's how NER prediction typically works with a transformer model:
 
+#Tokenization: The input text is divided into smaller units called tokens, which may be words or subwords.
+
+#Embedding: Each token is converted into a dense vector representation using an embedding layer, often initialized with pretrained embeddings.
+
+#Encoding with Transformer Layers: The tokens are passed through multiple layers of the transformer model, where self-attention mechanisms capture contextual relationships between tokens.
+
+#Output Layer: The encoded representations are fed into a classification layer that assigns a label (e.g., "Person", "Organization", "Location", "O" for non-entity) to each token.
+
+#Post-processing: The output labels are combined to form the final predictions, identifying the named entities in the text.
 
