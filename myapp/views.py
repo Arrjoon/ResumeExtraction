@@ -1,6 +1,7 @@
 from django.shortcuts import render,HttpResponse
 from pdfminer.high_level import extract_text
 from .forms import CustomUploadFileForm
+from .models import Resume_Description,Job_Description
 import os
 import re
 #machine learning module imported
@@ -70,7 +71,76 @@ def extraction_to_text(request):
             # return HttpResponse(f'File uploaded successfully: {text}')
             ner_view(text)
              # Add entities to the data dictionary
-            data['entities'] = ner_view(text)
+            entities = ner_view(text)
+            print(entities)
+            print(type(entities))
+
+            #adding to database
+            
+            try:
+            # Initialize variables to store extracted information
+                name = 'Unknown'
+                location = 'Unknown'
+                email = 'Unknown'
+                designation='Unknown'
+                experience = 'Unknown'
+                companies_worked_at = 'Unknown'
+                college_name = 'Unknown'
+                graduation_year = 'Unknown'
+                degree = 'Unknown'
+
+                skills = []
+
+                # Iterate through each entity dictionary
+                for entity in entities:
+                    if entity['label'] == 'Name':
+                        name = entity['text']
+                    elif entity['label'] == 'Location':
+                        location = entity['text']
+                    elif entity['label'] == 'Email Address':
+                        email = entity['text']
+                    elif entity['label'] == 'Years of Experience':
+                        experience = entity['text']
+                    elif entity['label'] == 'Degree':
+                        degree = entity['text']
+                    elif entity['label'] == 'Companies worked at':
+                        companies_worked_at=entity['text']
+                    elif entity['label'] == 'College Name':
+                        college_name = entity['text']
+                    elif entity['label'] == 'Graduation Year':
+                        graduation_year = entity['text']
+                    elif entity['label'] == 'Designation':
+                        designation=entity['text']
+                    elif entity['label'] == 'Skills':
+                        skills.extend([skill.strip() for skill in entity['text'].split(',') if skill.strip()])
+
+                    # Convert skills list to a comma-separated string
+                skills_str = ', '.join(skills)
+
+
+                    # Create and save a new Profile instance
+                profile = Resume_Description(
+                    name=name,
+                    designation=designation,
+                    location=location,
+                    email_address=email,
+                    company_working_at =companies_worked_at,
+                    degree=degree,
+                    college_name=college_name,
+                    graduation_year=graduation_year,
+                    experience=experience,
+                    skills=skills
+                    )
+                profile.save()
+            except Exception as e:
+                # Handle the exception here
+                return HttpResponse(f'Error occurred: {str(e)}')
+            data = {
+                'email': email,
+                'contact': contact,
+                'entities': entities
+            }
+
             return render(request,'upload.html',{'data':data})
     else:
         form = CustomUploadFileForm()
