@@ -49,31 +49,32 @@
 <div class="container mt-6 overflow-hidden text-center">
     {% if data and data|length > 0 %}
     <h1 class="text-white">Extracted Information </h1>
-   
+
     <div class="row gx-5 form-container">
         {% for key, value in data.items %}
-                {% if value %}
-                    <div class="">
-                        {% if key == 'entities' %}
-                        <ul>
-                            <div class="p-3 "><strong>{{ key }}:</strong> 
-                            {% for entity in value %}
-                            <div class="form-control text-center">
-                                <div>{{ entity.label }}</div>
-                                <div>{{ entity.text }}</div>
-                                        </div>
-                                        <br>
-                                    {% endfor %}
-                                </ul>
-                            {% else %}
-                                {{ value }}
-                            {% endif %}
-                        </div>
+        {% if value %}
+        <div class="">
+            {% if key == 'entities' %}
+            <ul>
+                <div class="p-3 ">
+                    {% for entity in value %}
+                    <div class="form-control text-center">
+                        <div>{{ entity.label }}</div>
+                        <div>{{ entity.text }}</div>
                     </div>
-                {% endif %}
-            {% endfor %}
+                    <br>
+                    {% endfor %}
+            </ul>
+            {% else %}
+             {{key}}
+            {{ value }}
+            {% endif %}
+        </div>
     </div>
     {% endif %}
+    {% endfor %}
+</div>
+{% endif %}
 </div>
 
 {% endblock %}
