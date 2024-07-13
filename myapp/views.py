@@ -64,12 +64,14 @@ def extraction_to_text(request):
             file_path = handle_uploaded_file(request.FILES['file'])
             # Here you can pass the file_path to any function that needs it
             text=extract_text(file_path)
-            email = extract_email_from_resume(text)
-            contact = extract_contact_number_from_resume(text)
+            # Clean the text by removing \n, \t, and extra spaces
+            cleaned_text = re.sub(r'\s+', ' ', text).strip()
+            email = extract_email_from_resume(cleaned_text)
+            contact = extract_contact_number_from_resume(cleaned_text)
             # linkedin = extract_linkedin_id(text)
             data={'email':email,'contact':contact}
             # return HttpResponse(f'File uploaded successfully: {text}')
-            ner_view(text)
+            ner_view(cleaned_text)
              # Add entities to the data dictionary
             entities = ner_view(text)
             print(entities)
