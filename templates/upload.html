@@ -44,37 +44,33 @@
     </div>
 </div>
 
-
-
 <div class="container mt-6 overflow-hidden text-center">
     {% if data and data|length > 0 %}
-    <h1 class="text-white">Extracted Information </h1>
+    <h1 class="text-white">Extracted Information</h1>
 
     <div class="row gx-5 form-container">
         {% for key, value in data.items %}
         {% if value %}
-        <div class="">
+        <div class="col-md-6">
             {% if key == 'entities' %}
             <ul>
-                <div class="p-3 ">
-                    {% for entity in value %}
-                    <div class="form-control text-center">
-                        <div>{{ entity.label }}</div>
-                        <div>{{ entity.text }}</div>
-                    </div>
-                    <br>
-                    {% endfor %}
+                {% for entity in value %}
+                <li class="form-control text-center my-2">
+                    <div><strong>{{ entity.label }}</strong></div>
+                    <div>{{ entity.text }}</div>
+                </li>
+                {% endfor %}
             </ul>
             {% else %}
-             {{key}}
-            {{ value }}
+            <div class="form-control text-center my-2">
+                <strong>{{ key }}</strong>: {{ value }}
+            </div>
             {% endif %}
         </div>
+        {% endif %}
+        {% endfor %}
     </div>
     {% endif %}
-    {% endfor %}
-</div>
-{% endif %}
 </div>
 
 {% endblock %}
