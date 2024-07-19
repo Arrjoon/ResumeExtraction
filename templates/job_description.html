@@ -32,13 +32,7 @@
 <div class="container">
     <div class="form-container ">
         <div class="d-flex flex-row justify-content-between align-items-center">
-            <div>
-                <button class="btn btn-primary mr-2" type="button" data-toggle="collapse" data-target="#addPostForm"
-                    aria-expanded="false" aria-controls="addPostForm">
-                    Add Job Descriptions
-                </button>
-            </div>
-            <div>or</div>
+
             <div>
                 <button class="btn btn-primary ml-2" type="button" data-toggle="collapse" data-target="#addUploadForm"
                     aria-expanded="false" aria-controls="addPostForm">
@@ -49,69 +43,17 @@
         <!-- job description upload -->
         <div class="collapse mt-3" id="addUploadForm">
             <div class="card card-body">
-                <form action="{% url 'upload_file' %}" method="post" enctype="multipart/form-data"
+                <form action="" method="post" enctype="multipart/form-data"
                     class="needs-validation" novalidate>
                     {% csrf_token %}
-                    <div class="form-group">
-                        <label for="fileInput" class="">
-                            Select File from drive
-                            <br>
-                            <input type="file" id="fileInput" name="file" class="d-none">
-                        </label>
-                    </div>
-                    <small class="form-text text-muted">Choose a file to upload.</small>
-                    <button type="submit" class="btn btn-success mt-3">Upload</button>
+                    {{ form.as_p }}
+                    <button type="submit">Show matching result</button>
                 </form>
-
             </div>
+            
         </div>
+        
 
-        <!-- Form to Add Post -->
-        <!-- This div will be shown or hidden when the button is clicked -->
-        <div class="collapse mt-3" id="addPostForm">
-            <div class="card card-body">
-                <form action="{url 'job_description'}" >
-                    <h4>About Job</h4>
-                    <div class="form-group mt-3">
-                        <label for="postContent">Job Role</label>
-                        <input type="text" class="form-control" id="skillInput" placeholder="Enter a job role" name="job_role">
-                    </div>
-                    <div class="form-group">
-                        <label for="postTitlemt-3">Company Description </label>
-                        <textarea type="text" class="form-control" id="postTitle" placeholder="Enter Job description" name="company_description"></textarea>
-                    </div>
-                    <div class="form-group mt-3">
-                        <label for="postContent">Job Description</label>
-                        <textarea class="form-control" id="postContent" rows="3"
-                            placeholder="Enter role description" name="job_description"></textarea>
-                    </div>
-                    <div class="form-group mt-3">
-                        <label for="postContent">Requirements</label>
-                        <textarea class="form-control" id="postContent" rows="3"
-                            placeholder="Enter role description" name="requirements"></textarea>
-                    </div>
-                    <!-- Skills Section -->
-                    <div class="form-group mt-3">
-                        <label for="skillInput">Skill</label>
-                        <input type="text" class="form-control" id="skillInput" placeholder="Enter a skill" name="skills">
-                    </div>
-                    <button type="button" class="btn btn-primary mt-1" onclick="addSkill()">Add More</button>
-                    <input type="hidden" name="skills" id="hiddenSkills">
-                    <div id="skillsList">
-                        <h4>Skills List</h4>
-                        <li id="skillsUl" class="list-group"></li>
-                    </div>
-                    <!-- List of Skills -->
-                    <div class="form-groupmt-3">
-                        <label for="skillInput">Experience</label>
-                        <input type="text" class="form-control" id="skillInput" placeholder="Enter a Experience" name="experience">
-                    </div>
-
-                    <button type="submit" class="btn btn-success mt-4">Add Your Job Description</button>
-                </form>
-
-            </div>
-        </div>
     </div>
 
 </div>
@@ -119,34 +61,6 @@
     <h1 class="text-white">Your Recent Job Description</h1>
 </div>
 
-<script>
-    let skills = [];
-
-    function addSkill() {
-        // Get the skill input value
-        const skillInput = document.getElementById('skillInput').value;
-
-        // Check if input is not empty
-        if (skillInput.trim() !== '') {
-            // Add skill to skills array
-            skills.push(skillInput);
-
-            // Create a new list item
-            const li = document.createElement('li');
-            li.className = 'list-group-item';
-            li.textContent = skillInput;
-
-            // Append the new list item to the skills list
-            document.getElementById('skillsUl').appendChild(li);
-
-            // Update hidden input field
-            document.getElementById('hiddenSkills').value = JSON.stringify(skills);
-
-            // Clear the input field
-            document.getElementById('skillInput').value = '';
-        }
-    }
-</script>
 
 
 <div class="container mt-6 overflow-hidden text-center">

@@ -1,28 +1,58 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matching Results</title>
-</head>
-<body>
-    <h1>Matching Results</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Resume</th>
-                <th>Score</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for resume, score in ranked_resumes %}
-            <tr>
-                <td>{{ resume }}</td>
-                <td>{{ score }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <a href="{% url 'ranking_resume' %}">Back</a>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content1 %}
+<style>
+    .file-upload {
+        margin-bottom: 1rem;
+    }
+
+    .submit-btn {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+    }
+
+    .submit-btn:hover {
+        background-color: #0056b3;
+    }
+
+    .form-container {
+        margin-top: 2rem;
+        padding: 2rem;
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        background-color: #f8f9fa;
+    }
+</style>
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="form-container ">
+        <h2 class="text-center">Ranked Resumes</h2>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Resume</th>
+                    <th scope="col">Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for resume, score in ranked_resumes %}
+                <tr>
+                    <td>{{ resume }}</td>
+                    <td>{{ score }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'job_description' %}">Back</a>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

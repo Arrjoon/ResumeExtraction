@@ -51,25 +51,26 @@
     <div class="row gx-5 form-container">
         {% for key, value in data.items %}
         {% if value %}
-        <div class="col-md-6">
             {% if key == 'entities' %}
-            <ul>
                 {% for entity in value %}
-                <li class="form-control text-center my-2">
-                    <div><strong>{{ entity.label }}</strong></div>
-                    <div>{{ entity.text }}</div>
-                </li>
+                <div class="col-md-6">
+                    <div class="form-control text-center my-2">
+                        <div><strong>{{ entity.label }}</strong></div>
+                        <div>{{ entity.text }}</div>
+                    </div>
+                </div>
                 {% endfor %}
-            </ul>
             {% else %}
-            <div class="form-control text-center my-2">
-                <strong>{{ key }}</strong>: {{ value }}
+            <div class="col-md-6">
+                <div class="form-control text-center my-2">
+                    <strong>{{ key }}</strong>: {{ value }}
+                </div>
             </div>
             {% endif %}
-        </div>
         {% endif %}
         {% endfor %}
     </div>
+    
     {% endif %}
 </div>
 

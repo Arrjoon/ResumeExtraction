@@ -5,6 +5,7 @@ from . import views
 
 urlpatterns = [
     
-    path('',views.ranking_resume,name="ranking_resume"),
-   
+    # path('',views.,name="ranking_resume"),
+     path('',views.ranking_resume,name="job_description"),
+    path('export_jobs_to_csv/', views.export_jobs_to_csv, name='export_jobs_to_csv'),
 ]

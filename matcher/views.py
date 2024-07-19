@@ -1,5 +1,7 @@
 from django.shortcuts import render
-
+import csv
+from django.http import HttpResponse
+from myapp.models import Job_Description
 # Create your views here.
 from django.shortcuts import render
 from django.core.files.storage import default_storage
@@ -73,4 +75,42 @@ def ranking_resume(request):
     else:
         form = JobDescriptionForm()
     
-    return render(request, 'matcher_job_description.html', {'form': form})
+    return render(request, 'job_description.html', {'form': form})
+
+
+
+def export_jobs_to_csv(request):
+    # Define the HTTP response with the appropriate CSV header
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="job_descriptions.csv"'
+
+    # Create a CSV writer
+    writer = csv.writer(response)
+    fieldnames = [
+        'job_role', 
+        'company_description', 
+        'role_description', 
+        'qualification', 
+        'degree', 
+        'experience', 
+        'skills'
+    ]
+
+    # Write the header row
+    writer.writerow(fieldnames)
+
+    # Write job description data
+    jobs = Job_Description.objects.all()
+    for job in jobs:
+        writer.writerow([
+            job.job_role,
+            job.company_description,
+            job.role_description,
+            job.qualification,
+            job.degree,
+            job.experience,
+            job.skills
+        ])
+
+    return response
+
