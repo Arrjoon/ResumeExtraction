@@ -57,36 +57,7 @@
     </div>
 
 </div>
-<div class="container">
-    <h1 class="text-white">Your Recent Job Description</h1>
-</div>
 
 
-
-<div class="container mt-6 overflow-hidden text-center">
-    {% if data and data|length > 0 %}
-    <h1>Extracted Information </h1>
-
-    <div class="row gx-5">
-        {% for key, value in data.items %}
-        {% if value %}
-        <div class="col-6">
-            <div class="p-3 text-bg-primary"><strong>{{ key }}:</strong>
-                {% if key == 'entities' %}
-                <ul>
-                    {% for entity in value %}
-                    <li>{{ entity.text }} - {{ entity.label }}</li>
-                    {% endfor %}
-                </ul>
-                {% else %}
-                {{ value }}
-                {% endif %}
-            </div>
-        </div>
-        {% endif %}
-        {% endfor %}
-    </div>
-    {% endif %}
-</div>
 
 {% endblock %}

@@ -18,6 +18,9 @@ from docx import Document
 
 # Create your views here.
 
+def home(request):
+    return render(request,'home.html')
+
 def ner_view(input_text):  
         spacy_ner = SpaCyNER()
         entities = spacy_ner.predict(input_text)

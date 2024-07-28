@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .cover-image {
+        display: block;
+        width: 100%; /* Full width */
+        height: auto; /* Maintain aspect ratio */
+        margin-top: 20px; /* Adjust margin as needed */
+    }
+  </style>
+  
+  <img src="{% static 'img/homepage.jpg' %}" alt="Resume Parser" class="cover-image"/>
+{% endblock %}
