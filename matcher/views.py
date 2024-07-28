@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import csv
 from django.http import HttpResponse
-from myapp.models import Job_Description
+from myapp.models import Job_Description,Resume_Description
 # Create your views here.
 from django.shortcuts import render
 from django.core.files.storage import default_storage
@@ -79,37 +79,45 @@ def ranking_resume(request):
 
 
 
-def export_jobs_to_csv(request):
+def export_resumes_to_csv(request):
     # Define the HTTP response with the appropriate CSV header
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="job_descriptions.csv"'
+    response['Content-Disposition'] = 'attachment; filename="resume_descriptions.csv"'
 
     # Create a CSV writer
     writer = csv.writer(response)
     fieldnames = [
-        'job_role', 
-        'company_description', 
-        'role_description', 
-        'qualification', 
+        'name', 
+        'designation', 
+        'location', 
+        'email_address', 
+        'company_working_at', 
         'degree', 
+        'college_name', 
+        'graduation_year', 
         'experience', 
+        'university', 
         'skills'
     ]
 
     # Write the header row
     writer.writerow(fieldnames)
 
-    # Write job description data
-    jobs = Job_Description.objects.all()
-    for job in jobs:
+    # Write resume description data
+    resumes = Resume_Description.objects.all()
+    for resume in resumes:
         writer.writerow([
-            job.job_role,
-            job.company_description,
-            job.role_description,
-            job.qualification,
-            job.degree,
-            job.experience,
-            job.skills
+            resume.name,
+            resume.designation,
+            resume.location,
+            resume.email_address,
+            resume.company_working_at,
+            resume.degree,
+            resume.college_name,
+            resume.graduation_year,
+            resume.experience,
+            resume.university,
+            resume.skills
         ])
 
     return response
